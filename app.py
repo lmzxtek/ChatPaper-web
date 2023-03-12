@@ -619,6 +619,10 @@ Use ChatGPT to summary the papers.
 
 Star our Github [ChatPaper](https://github.com/kaixindelele/ChatPaper)
 
+如果您觉得我们的项目对您有帮助，还请您给我们一些鼓励！
+
+<img src='https://i.328888.xyz/2023/03/12/vlixZ.png'>
+
 </div>
 '''
 # 创建Gradio界面
