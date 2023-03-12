@@ -613,7 +613,14 @@ def upload_pdf(key, text, file):
 # 标题
 title = "ChatPaper"
 # 描述
-description = "<div align='center'>帮助您快速阅读论文</div>"
+description = '''<div align='center'>
+
+Use ChatGPT to summary the papers.
+
+Star our Github [ChatPaper](https://github.com/kaixindelele/ChatPaper)
+
+</div>
+'''
 # 创建Gradio界面
 ip = [
     gradio.inputs.Textbox(label="请输入你的API-key(必填)", default=""),
