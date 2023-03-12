@@ -616,7 +616,7 @@ title = "ChatPaper"
 description = '''<div align='left'>
 
 Use ChatGPT to summary the papers.Star our Github [🌟ChatPaper](https://github.com/kaixindelele/ChatPaper) .
-<img align='right' src='https://i.328888.xyz/2023/03/12/vlixZ.png' width="200">
+<img align='right' src='https://i.328888.xyz/2023/03/12/vH9dU.png' width="200">
 💗如果您觉得我们的项目对您有帮助，还请您给我们一些鼓励！💗
 
 🔴请注意：千万不要用于严肃的学术场景，只能用于论文阅读前的初筛！
