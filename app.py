@@ -611,7 +611,7 @@ def upload_pdf(key, text, file):
         return sum_info
 
 # 标题
-title = "ChatPaper"
+title = "ChatPaper <img src='https://visitor-badge.laobi.icu/badge?page_id=https://huggingface.co/spaces/wangrongsheng/ChatPaper'>"
 # 描述
 description = '''<div align='left'>
 
