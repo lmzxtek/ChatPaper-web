@@ -472,21 +472,6 @@ class Reader:
             md_text = "\n".join(htmls)
             
             return markdown.markdown(md_text)
-            # # 整合成一个文件，打包保存下来。
-            '''
-            date_str = str(datetime.datetime.now())[:13].replace(' ', '-')
-            try:
-                export_path = os.path.join(self.root_path, 'export')
-                os.makedirs(export_path)
-            except:
-                pass                             
-            mode = 'w' if paper_index == 0 else 'a'
-            file_name = os.path.join(export_path, date_str+'-'+self.validateTitle(paper.title)[:25]+"."+self.file_format)
-            self.export_to_markdown("\n".join(htmls), file_name=file_name, mode=mode)
-            htmls = []
-            '''
-            # file_name = os.path.join(export_path, date_str+'-'+self.validateTitle(paper.title)+".md")
-            # self.export_to_markdown("\n".join(htmls), file_name=file_name, mode=mode)
             
             
     @tenacity.retry(wait=tenacity.wait_exponential(multiplier=1, min=4, max=10),
@@ -631,9 +616,9 @@ title = "ChatPaper"
 description = "<div align='center'>帮助您快速阅读论文</div>"
 # 创建Gradio界面
 ip = [
-    gradio.inputs.Textbox(label="请输入你的API-key", default=""),
-    gradio.inputs.Textbox(label="请输入论文大标题索引,(用【,】隔开)", default="'Abstract,Introduction,Related Work,Background,Preliminary,Problem Formulation,Methods,Methodology,Method,Approach,Approaches,Materials and Methods,Experiment Settings,Experiment,Experimental Results,Evaluation,Experiments,Results,Findings,Data Analysis,Discussion,Results and Discussion,Conclusion,References'"),
-    gradio.inputs.File(label="上传论文(必须为PDF)")
+    gradio.inputs.Textbox(label="请输入你的API-key(必填)", default=""),
+    gradio.inputs.Textbox(label="请输入论文大标题索引(用英文逗号隔开,必填)", default="'Abstract,Introduction,Related Work,Background,Preliminary,Problem Formulation,Methods,Methodology,Method,Approach,Approaches,Materials and Methods,Experiment Settings,Experiment,Experimental Results,Evaluation,Experiments,Results,Findings,Data Analysis,Discussion,Results and Discussion,Conclusion,References'"),
+    gradio.inputs.File(label="请上传论文PDF(必填)")
 ]
 
 interface = gradio.Interface(fn=upload_pdf, inputs=ip, outputs="html", title=title, description=description)
