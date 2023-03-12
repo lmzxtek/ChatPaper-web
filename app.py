@@ -397,7 +397,7 @@ class Reader:
             
         return image_url
     
-    def summary_with_chat(self, paper_list):
+    def summary_with_chat(self, paper_list, key):
         htmls = []
         for paper_index, paper in enumerate(paper_list):
             # 第一步先用title，abs，和introduction进行总结。
@@ -409,7 +409,7 @@ class Reader:
             text += list(paper.section_text_dict.values())[0]
             max_token = 2500 * 4
             text = text[:max_token]
-            chat_summary_text = self.chat_summary(text=text)           
+            chat_summary_text = self.chat_summary(text=text, key=str(key))           
             htmls.append(chat_summary_text)
             
             # TODO 往md文档中插入论文里的像素最大的一张图片，这个方案可以弄的更加智能一些：
@@ -441,7 +441,7 @@ class Reader:
                 max_token = 2500 * 4
                 text = summary_text + "\n <Methods>:\n" + method_text 
                 text = text[:max_token]
-                chat_method_text = self.chat_method(text=text)
+                chat_method_text = self.chat_method(text=text, key=str(key))
                 htmls.append(chat_method_text)
             else:
                 chat_method_text = ''
@@ -466,7 +466,7 @@ class Reader:
             else:
                 text = summary_text
             text = text[:max_token]
-            chat_conclusion_text = self.chat_conclusion(text=text)
+            chat_conclusion_text = self.chat_conclusion(text=text, key=str(key))
             htmls.append(chat_conclusion_text)
             htmls.append("\n")
             md_text = "\n".join(htmls)
@@ -492,8 +492,8 @@ class Reader:
     @tenacity.retry(wait=tenacity.wait_exponential(multiplier=1, min=4, max=10),
                     stop=tenacity.stop_after_attempt(5),
                     reraise=True)
-    def chat_conclusion(self, text):
-        openai.api_key = self.key
+    def chat_conclusion(self, text, key):
+        openai.api_key = key
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             # prompt需要用英语替换，少占用token。
@@ -523,8 +523,8 @@ class Reader:
     @tenacity.retry(wait=tenacity.wait_exponential(multiplier=1, min=4, max=10),
                     stop=tenacity.stop_after_attempt(5),
                     reraise=True)
-    def chat_method(self, text):
-        openai.api_key = self.key
+    def chat_method(self, text, key):
+        openai.api_key = key
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[
@@ -556,8 +556,8 @@ class Reader:
     @tenacity.retry(wait=tenacity.wait_exponential(multiplier=1, min=4, max=10),
                     stop=tenacity.stop_after_attempt(5),
                     reraise=True)
-    def chat_summary(self, text):
-        openai.api_key = self.key
+    def chat_summary(self, text, key):
+        openai.api_key = key
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[
