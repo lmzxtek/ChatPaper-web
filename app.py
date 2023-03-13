@@ -518,8 +518,6 @@ class Reader:
                     reraise=True)
     def chat_conclusion(self, text, key):
         openai.api_key = key
-        self.cur_api += 1
-        self.cur_api = 0 if self.cur_api >= len(self.chat_api_list)-1 else self.cur_api
         conclusion_prompt_token = 650        
         text_token = len(self.encoding.encode(text))
         clip_text_index = int(len(text)*(self.max_token_num-conclusion_prompt_token)/text_token)
@@ -565,8 +563,6 @@ class Reader:
                     reraise=True)
     def chat_method(self, text, key):
         openai.api_key = key
-        self.cur_api += 1
-        self.cur_api = 0 if self.cur_api >= len(self.chat_api_list)-1 else self.cur_api
         method_prompt_token = 650        
         text_token = len(self.encoding.encode(text))
         clip_text_index = int(len(text)*(self.max_token_num-method_prompt_token)/text_token)
@@ -614,8 +610,6 @@ class Reader:
                     reraise=True)
     def chat_summary(self, text, key):
         openai.api_key = key
-        self.cur_api += 1
-        self.cur_api = 0 if self.cur_api >= len(self.chat_api_list)-1 else self.cur_api
         summary_prompt_token = 1000        
         text_token = len(self.encoding.encode(text))
         clip_text_index = int(len(text)*(self.max_token_num-summary_prompt_token)/text_token)
