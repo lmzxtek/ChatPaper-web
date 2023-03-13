@@ -471,7 +471,7 @@ class Reader:
                 # methods                
                 method_text += paper.section_text_dict[method_key]                   
                 text = summary_text + "\n<Methods>:\n" + method_text                 
-                chat_method_text, utoken2, ctoken2, ttoken2 = self.chat_method(text=text)
+                chat_method_text, utoken2, ctoken2, ttoken2 = self.chat_method(text=text, key=str(key))
                 htmls.append(chat_method_text)
             else:
                 chat_method_text = ''
@@ -494,7 +494,7 @@ class Reader:
                 text = summary_text + "\n <Conclusion>:\n" + conclusion_text 
             else:
                 text = summary_text            
-            chat_conclusion_text, utoken3, ctoken3, ttoken3 = self.chat_conclusion(text=text)
+            chat_conclusion_text, utoken3, ctoken3, ttoken3 = self.chat_conclusion(text=text, key=str(key))
             htmls.append(chat_conclusion_text)
             htmls.append("\n")
             # token统计
