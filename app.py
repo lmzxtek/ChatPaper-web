@@ -12,6 +12,27 @@ from PIL import Image
 import gradio
 import markdown
 
+def get_response(system, context, myKey, raw = False):
+    openai.api_key = myKey
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[system, *context],
+    )
+    openai.api_key = ""
+    if raw:
+        return response
+    else:
+        message = response["choices"][0]["message"]["content"]
+        message_with_stats = f'{message}'
+        return message, parse_text(message_with_stats)
+
+def valid_apikey(api_key):
+    try:
+        get_response({"role": "system", "content": "You are a helpful assistant."}, [{"role": "user", "content": "test"}], api_key)
+        return "可用的api-key"
+    except:
+        return "无效的api-key"
+
 class Paper:
     def __init__(self, path, title='', url='', abs='', authers=[], sl=[]):
         # 初始化函数，根据pdf路径初始化Paper对象                
@@ -610,6 +631,27 @@ def upload_pdf(key, text, file):
         sum_info = reader.summary_with_chat(paper_list=paper_list, key=key)
         return sum_info
 
+api_title = "api-key可用验证"
+api_description = '''<div align='left'>
+
+<img src='https://visitor-badge.laobi.icu/badge?page_id=https://huggingface.co/spaces/wangrongsheng/ChatPaper'>
+
+<img align='right' src='https://i.328888.xyz/2023/03/12/vH9dU.png' width="150">
+
+Use ChatGPT to summary the papers.Star our Github [🌟ChatPaper](https://github.com/kaixindelele/ChatPaper) .
+
+💗如果您觉得我们的项目对您有帮助，还请您给我们一些鼓励！💗
+
+🔴请注意：千万不要用于严肃的学术场景，只能用于论文阅读前的初筛！
+
+</div>
+'''
+
+api_input = [
+    gradio.inputs.Textbox(label="请输入你的api-key(必填)", default="")
+]
+api_gui = gradio.Interface(fn=valid_apikey, inputs=api_input, outputs="text", title=api_title, description=api_description)
+
 # 标题
 title = "ChatPaper"
 # 描述
@@ -634,7 +676,8 @@ ip = [
     gradio.inputs.File(label="请上传论文PDF(必填)")
 ]
 
-interface = gradio.Interface(fn=upload_pdf, inputs=ip, outputs="html", title=title, description=description)
+chatpaper_gui = gradio.Interface(fn=upload_pdf, inputs=ip, outputs="html", title=title, description=description)
 
-# 运行Gradio应用程序
-interface.launch()
+# Start server
+gui = gradio.TabbedInterface(interface_list=[api_gui, chatpaper_gui], tab_names=["API-key", "ChatPaper"])
+gui.launch(quiet=True,show_api=False)
