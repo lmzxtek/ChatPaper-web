@@ -675,7 +675,7 @@ description = '''<div align='left'>
 
 <img src='https://visitor-badge.laobi.icu/badge?page_id=https://huggingface.co/spaces/wangrongsheng/ChatPaper'>
 
-<img align='right' src='https://i.328888.xyz/2023/03/12/vH9dU.png' width="200">
+<img align='right' src='https://i.328888.xyz/2023/03/12/vH9dU.png' width="150">
 
 Use ChatGPT to summary the papers.Star our Github [🌟ChatPaper](https://github.com/kaixindelele/ChatPaper) .
 
