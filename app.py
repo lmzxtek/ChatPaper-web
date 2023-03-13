@@ -664,7 +664,7 @@ Use ChatGPT to summary the papers.Star our Github [🌟ChatPaper](https://github
 '''
 
 api_input = [
-    gradio.inputs.Textbox(label="请输入你的api-key(必填)", default="")
+    gradio.inputs.Textbox(label="请输入你的api-key(必填)", default="", type='password')
 ]
 api_gui = gradio.Interface(fn=valid_apikey, inputs=api_input, outputs="text", title=api_title, description=api_description)
 
@@ -687,7 +687,7 @@ Use ChatGPT to summary the papers.Star our Github [🌟ChatPaper](https://github
 '''
 # 创建Gradio界面
 ip = [
-    gradio.inputs.Textbox(label="请输入你的API-key(必填)", default=""),
+    gradio.inputs.Textbox(label="请输入你的API-key(必填)", default="", type='password'),
     gradio.inputs.Textbox(label="请输入论文大标题索引(用英文逗号隔开,必填)", default="'Abstract,Introduction,Related Work,Background,Preliminary,Problem Formulation,Methods,Methodology,Method,Approach,Approaches,Materials and Methods,Experiment Settings,Experiment,Experimental Results,Evaluation,Experiments,Results,Findings,Data Analysis,Discussion,Results and Discussion,Conclusion,References'"),
     gradio.inputs.File(label="请上传论文PDF(必填)")
 ]
