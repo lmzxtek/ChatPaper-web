@@ -12,6 +12,22 @@ from PIL import Image
 import gradio
 import markdown
 
+def parse_text(text):
+    lines = text.split("\n")
+    for i,line in enumerate(lines):
+        if "```" in line:
+            items = line.split('`')
+            if items[-1]:
+                lines[i] = f'<pre><code class="{items[-1]}">'
+            else:
+                lines[i] = f'</code></pre>'
+        else:
+            if i>0:
+                line = line.replace("<", "&lt;")
+                line = line.replace(">", "&gt;")
+                lines[i] = '<br/>'+line.replace(" ", "&nbsp;")
+    return "".join(lines)
+
 def get_response(system, context, myKey, raw = False):
     openai.api_key = myKey
     response = openai.ChatCompletion.create(
