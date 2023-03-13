@@ -523,16 +523,16 @@ class Reader:
                 {"role": "system", "content": "你是一个["+self.key_word+"]领域的审稿人，你需要严格评审这篇文章"},  # chatgpt 角色
                 {"role": "assistant", "content": "这是一篇英文文献的<summary>和<conclusion>部分内容，其中<summary>你已经总结好了，但是<conclusion>部分，我需要你帮忙归纳下面问题："+text},  # 背景知识，可以参考OpenReview的审稿流程
                 {"role": "user", "content": """                 
-                 8. 做出如下总结：
-                    - (1):这篇工作的意义如何？
-                    - (2):从创新点、性能、工作量这三个维度，总结这篇文章的优点和缺点。                   
+                 8. Make the following summary.Be sure to use Chinese answers (proper nouns need to be marked in English).
+                    - (1):What is the significance of this piece of work?
+                    - (2):Summarize the strengths and weaknesses of this article in three dimensions: innovation point, performance, and workload.                   
                     .......
-                 按照后面的格式输出: 
-                 8. Conclusion:
-                    - (1):xxx;                     
-                    - (2):创新点: xxx; 性能: xxx; 工作量: xxx;                      
+                 Follow the format of the output later: 
+                 8. Conclusion: \n\n
+                    - (1):xxx;\n                     
+                    - (2):Innovation point: xxx; Performance: xxx; Workload: xxx;\n                      
                  
-                 务必使用中文回答（专有名词需要用英文标注)，语句尽量简洁且学术，不要和之前的<summary>内容重复，数值使用原文数字, 务必严格按照格式，将对应内容输出到xxx中，.......代表按照实际需求填写，如果没有可以不用写.                 
+                 Be sure to use Chinese answers (proper nouns need to be marked in English), statements as concise and academic as possible, do not repeat the content of the previous <summary>, the value of the use of the original numbers, be sure to strictly follow the format, the corresponding content output to xxx, in accordance with \n line feed, ....... means fill in according to the actual requirements, if not, you can not write.                 
                  """},
             ]
         )
@@ -553,19 +553,19 @@ class Reader:
                 {"role": "system", "content": "你是一个["+self.key_word+"]领域的科研人员，善于使用精炼的语句总结论文"},  # chatgpt 角色
                 {"role": "assistant", "content": "这是一篇英文文献的<summary>和<Method>部分内容，其中<summary>你已经总结好了，但是<Methods>部分，我需要你帮忙阅读并归纳下面问题："+text},  # 背景知识
                 {"role": "user", "content": """                 
-                 7. 详细描述这篇文章的方法思路。比如说它的步骤是：
+                 7. Describe in detail the methodological idea of this article. Be sure to use Chinese answers (proper nouns need to be marked in English). For example, its steps are.
                     - (1):...
                     - (2):...
                     - (3):...
                     - .......
-                 按照后面的格式输出: 
-                 7. Methods:
-                    - (1):xxx; 
-                    - (2):xxx; 
-                    - (3):xxx;  
-                    .......     
+                 Follow the format of the output that follows: 
+                 7. Methods: \n\n
+                    - (1):xxx;\n 
+                    - (2):xxx;\n 
+                    - (3):xxx;\n  
+                    ....... \n\n     
                  
-                 务必使用中文回答（专有名词需要用英文标注)，语句尽量简洁且学术，不要和之前的<summary>内容重复，数值使用原文数字, 务必严格按照格式，将对应内容输出到xxx中，按照\n换行，.......代表按照实际需求填写，如果没有可以不用写.                 
+                 Be sure to use Chinese answers (proper nouns need to be marked in English), statements as concise and academic as possible, do not repeat the content of the previous <summary>, the value of the use of the original numbers, be sure to strictly follow the format, the corresponding content output to xxx, in accordance with \n line feed, ....... means fill in according to the actual requirements, if not, you can not write.                 
                  """},
             ]
         )
@@ -586,29 +586,29 @@ class Reader:
                 {"role": "system", "content": "你是一个["+self.key_word+"]领域的科研人员，善于使用精炼的语句总结论文"},  # chatgpt 角色
                 {"role": "assistant", "content": "这是一篇英文文献的标题，作者，链接，Abstract和Introduction部分内容，我需要你帮忙阅读并归纳下面问题："+text},  # 背景知识
                 {"role": "user", "content": """                 
-                 1. 标记出这篇文献的标题(加上中文翻译)
-                 2. 列举所有的作者姓名 (使用英文)
-                 3. 标记第一作者的单位（只输出中文翻译）                 
-                 4. 标记出这篇文章的关键词(使用英文)
-                 5. 论文链接，Github代码链接（如果有的话，没有的话请填写Github:None）
-                 6. 按照下面四个点进行总结：
-                    - (1):这篇文章的研究背景是什么？
-                    - (2):过去的方法有哪些？它们存在什么问题？本文和过去的研究有哪些本质的区别？Is the approach well motivated?
-                    - (3):本文提出的研究方法是什么？
-                    - (4):本文方法在什么任务上，取得了什么性能？性能能否支持他们的目标？
-                 按照后面的格式输出:                  
-                 1. Title: xxx
-                 2. Authors: xxx
-                 3. Affiliation: xxx                
-                 4. Keywords: xxx   
-                 5. Urls: xxx or xxx , xxx      
-                 6. Summary:
-                    - (1):xxx;
-                    - (2):xxx;
-                    - (3):xxx; 
-                    - (4):xxx.    
+                 1. Mark the title of the paper (with Chinese translation)
+                 2. list all the authors' names (use English)
+                 3. mark the first author's affiliation (output Chinese translation only)                 
+                 4. mark the keywords of this article (use English)
+                 5. link to the paper, Github code link (if available, fill in Github:None if not)
+                 6. summarize according to the following four points.Be sure to use Chinese answers (proper nouns need to be marked in English)
+                    - (1):What is the research background of this article?
+                    - (2):What are the past methods? What are the problems with them? Is the approach well motivated?
+                    - (3):What is the research methodology proposed in this paper?
+                    - (4):On what task and what performance is achieved by the methods in this paper? Can the performance support their goals?
+                 Follow the format of the output that follows:                  
+                 1. Title: xxx\n\n
+                 2. Authors: xxx\n\n
+                 3. Affiliation: xxx\n\n                 
+                 4. Keywords: xxx\n\n   
+                 5. Urls: xxx or xxx , xxx \n\n      
+                 6. Summary: \n\n
+                    - (1):xxx;\n 
+                    - (2):xxx;\n 
+                    - (3):xxx;\n  
+                    - (4):xxx.\n\n     
                  
-                 务必使用中文回答（专有名词需要用英文标注)，语句尽量简洁且学术，不要有太多重复的信息，数值使用原文数字, 务必严格按照格式，将对应内容输出到xxx中，按照\n换行.                 
+                 Be sure to use Chinese answers (proper nouns need to be marked in English), statements as concise and academic as possible, do not have too much repetitive information, numerical values using the original numbers, be sure to strictly follow the format, the corresponding content output to xxx, in accordance with \n line feed.                 
                  """},
             ]
         )
@@ -649,17 +649,11 @@ def upload_pdf(key, text, file):
 
 api_title = "api-key可用验证"
 api_description = '''<div align='left'>
-
 <img src='https://visitor-badge.laobi.icu/badge?page_id=https://huggingface.co/spaces/wangrongsheng/ChatPaper'>
-
 <img align='right' src='https://i.328888.xyz/2023/03/12/vH9dU.png' width="150">
-
 Use ChatGPT to summary the papers.Star our Github [🌟ChatPaper](https://github.com/kaixindelele/ChatPaper) .
-
 💗如果您觉得我们的项目对您有帮助，还请您给我们一些鼓励！💗
-
 🔴请注意：千万不要用于严肃的学术场景，只能用于论文阅读前的初筛！
-
 </div>
 '''
 
@@ -672,17 +666,11 @@ api_gui = gradio.Interface(fn=valid_apikey, inputs=api_input, outputs="text", ti
 title = "ChatPaper"
 # 描述
 description = '''<div align='left'>
-
 <img src='https://visitor-badge.laobi.icu/badge?page_id=https://huggingface.co/spaces/wangrongsheng/ChatPaper'>
-
 <img align='right' src='https://i.328888.xyz/2023/03/12/vH9dU.png' width="200">
-
 Use ChatGPT to summary the papers.Star our Github [🌟ChatPaper](https://github.com/kaixindelele/ChatPaper) .
-
 💗如果您觉得我们的项目对您有帮助，还请您给我们一些鼓励！💗
-
 🔴请注意：千万不要用于严肃的学术场景，只能用于论文阅读前的初筛！
-
 </div>
 '''
 # 创建Gradio界面
