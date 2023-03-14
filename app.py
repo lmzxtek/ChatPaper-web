@@ -679,7 +679,7 @@ def upload_pdf(key, text, p, temperature, file):
         paper_list = [Paper(path=file, sl=section_list)]
         # 创建一个Reader对象
         reader = Reader()
-        sum_info, cost = reader.summary_with_chat(paper_list=paper_list, key=key, p, temperature)
+        sum_info, cost = reader.summary_with_chat(paper_list=paper_list, key=key, p=p, temperature=temperature)
         return cost, sum_info
 
 api_title = "api-key可用验证"
