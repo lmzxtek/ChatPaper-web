@@ -437,7 +437,7 @@ class Reader:
             text += list(paper.section_text_dict.values())[0]
             #max_token = 2500 * 4
             #text = text[:max_token]
-            chat_summary_text, utoken1, ctoken1, ttoken1 = self.chat_summary(text=text, key=str(key), p, temperature)           
+            chat_summary_text, utoken1, ctoken1, ttoken1 = self.chat_summary(text=text, key=str(key), p=p, temperature=temperature)           
             htmls.append(chat_summary_text)
             
             # TODO 往md文档中插入论文里的像素最大的一张图片，这个方案可以弄的更加智能一些：
@@ -455,7 +455,7 @@ class Reader:
                 # methods                
                 method_text += paper.section_text_dict[method_key]                   
                 text = summary_text + "\n<Methods>:\n" + method_text                 
-                chat_method_text, utoken2, ctoken2, ttoken2 = self.chat_method(text=text, key=str(key), p, temperature)
+                chat_method_text, utoken2, ctoken2, ttoken2 = self.chat_method(text=text, key=str(key), p=p, temperature=temperature)
                 htmls.append(chat_method_text)
             else:
                 chat_method_text = ''
@@ -478,7 +478,7 @@ class Reader:
                 text = summary_text + "\n <Conclusion>:\n" + conclusion_text 
             else:
                 text = summary_text            
-            chat_conclusion_text, utoken3, ctoken3, ttoken3 = self.chat_conclusion(text=text, key=str(key), p, temperature)
+            chat_conclusion_text, utoken3, ctoken3, ttoken3 = self.chat_conclusion(text=text, key=str(key), p=p, temperature=temperature)
             htmls.append(chat_conclusion_text)
             htmls.append("\n")
             # token统计
