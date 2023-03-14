@@ -290,7 +290,7 @@ class Reader:
     def __init__(self, key_word='', query='', filter_keys='', 
                  root_path='./',
                  gitee_key='',
-                 sort=arxiv.SortCriterion.SubmittedDate, user_name='defualt', language='cn', key=''):
+                 sort=arxiv.SortCriterion.SubmittedDate, user_name='defualt', language='cn', key='', p=1.0, temperature=1.0):
         self.key = str(key) # OpenAI key
         self.user_name = user_name # 读者姓名
         self.key_word = key_word # 读者感兴趣的关键词
