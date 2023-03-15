@@ -724,7 +724,7 @@ Use ChatGPT to summary the papers.Star our Github [🌟ChatPaper](https://github
 ip = [
     gradio.inputs.Textbox(label="请输入你的api-key(必填)", default="", type='password'),
     gradio.inputs.Textbox(label="请输入论文大标题索引(用英文逗号隔开,必填)", default="'Abstract,Introduction,Related Work,Background,Preliminary,Problem Formulation,Methods,Methodology,Method,Approach,Approaches,Materials and Methods,Experiment Settings,Experiment,Experimental Results,Evaluation,Experiments,Results,Findings,Data Analysis,Discussion,Results and Discussion,Conclusion,References'"),
-    gradio.inputs.Radio(choices=["gpt-3.5-turbo", "gpt-3.5-turbo-0301"], value="gpt-3.5-turbo", label="设备")
+    gradio.inputs.Radio(choices=["gpt-3.5-turbo", "gpt-3.5-turbo-0301"], value="gpt-3.5-turbo", label="设备"),
     gradio.inputs.Slider(minimum=-0, maximum=1.0, default=1.0, step=0.05, label="Top-p (nucleus sampling)"),
     gradio.inputs.Slider(minimum=-0, maximum=5.0, default=1.0, step=0.1, label="Temperature"),
     gradio.inputs.File(label="请上传论文PDF(必填)")
