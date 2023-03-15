@@ -290,7 +290,7 @@ class Reader:
     def __init__(self, key_word='', query='', filter_keys='', 
                  root_path='./',
                  gitee_key='',
-                 sort=arxiv.SortCriterion.SubmittedDate, user_name='defualt', language='cn', key='', p=1.0, temperature=1.0):
+                 sort=arxiv.SortCriterion.SubmittedDate, user_name='defualt', language='cn', key='', model_name="gpt-3.5-turbo", p=1.0, temperature=1.0):
         self.key = str(key) # OpenAI key
         self.user_name = user_name # 读者姓名
         self.key_word = key_word # 读者感兴趣的关键词
@@ -422,7 +422,7 @@ class Reader:
             
         return image_url
     
-    def summary_with_chat(self, paper_list, key, p, temperature):
+    def summary_with_chat(self, paper_list, key, model_name, p, temperature):
         htmls = []
         utoken = 0
         ctoken = 0
@@ -437,7 +437,7 @@ class Reader:
             text += list(paper.section_text_dict.values())[0]
             #max_token = 2500 * 4
             #text = text[:max_token]
-            chat_summary_text, utoken1, ctoken1, ttoken1 = self.chat_summary(text=text, key=str(key), p=p, temperature=temperature)           
+            chat_summary_text, utoken1, ctoken1, ttoken1 = self.chat_summary(text=text, key=str(key), model_name=str(model_name), p=p, temperature=temperature)           
             htmls.append(chat_summary_text)
             
             # TODO 往md文档中插入论文里的像素最大的一张图片，这个方案可以弄的更加智能一些：
@@ -455,7 +455,7 @@ class Reader:
                 # methods                
                 method_text += paper.section_text_dict[method_key]                   
                 text = summary_text + "\n<Methods>:\n" + method_text                 
-                chat_method_text, utoken2, ctoken2, ttoken2 = self.chat_method(text=text, key=str(key), p=p, temperature=temperature)
+                chat_method_text, utoken2, ctoken2, ttoken2 = self.chat_method(text=text, key=str(key), model_name=str(model_name), p=p, temperature=temperature)
                 htmls.append(chat_method_text)
             else:
                 chat_method_text = ''
@@ -478,7 +478,7 @@ class Reader:
                 text = summary_text + "\n <Conclusion>:\n" + conclusion_text 
             else:
                 text = summary_text            
-            chat_conclusion_text, utoken3, ctoken3, ttoken3 = self.chat_conclusion(text=text, key=str(key), p=p, temperature=temperature)
+            chat_conclusion_text, utoken3, ctoken3, ttoken3 = self.chat_conclusion(text=text, key=str(key), model_name=str(model_name), p=p, temperature=temperature)
             htmls.append(chat_conclusion_text)
             htmls.append("\n")
             # token统计
@@ -500,7 +500,7 @@ class Reader:
     @tenacity.retry(wait=tenacity.wait_exponential(multiplier=1, min=4, max=10),
                     stop=tenacity.stop_after_attempt(5),
                     reraise=True)
-    def chat_conclusion(self, text, key, p, temperature):
+    def chat_conclusion(self, text, key, model_name, p, temperature):
         openai.api_key = key
         conclusion_prompt_token = 650        
         text_token = len(self.encoding.encode(text))
@@ -524,7 +524,7 @@ class Reader:
                  """},
             ]
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model=model_name,
             # prompt需要用英语替换，少占用token。
             messages=messages,
             temperature=temperature, # What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
@@ -547,7 +547,7 @@ class Reader:
     @tenacity.retry(wait=tenacity.wait_exponential(multiplier=1, min=4, max=10),
                     stop=tenacity.stop_after_attempt(5),
                     reraise=True)
-    def chat_method(self, text, key, p, temperature):
+    def chat_method(self, text, key, model_name, p, temperature):
         openai.api_key = key
         method_prompt_token = 650        
         text_token = len(self.encoding.encode(text))
@@ -573,7 +573,7 @@ class Reader:
                  """},
             ]
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model=model_name,
             messages=messages,
             temperature=temperature, # What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
             top_p=p # An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered.
@@ -596,7 +596,7 @@ class Reader:
     @tenacity.retry(wait=tenacity.wait_exponential(multiplier=1, min=4, max=10),
                     stop=tenacity.stop_after_attempt(5),
                     reraise=True)
-    def chat_summary(self, text, key, p, temperature):
+    def chat_summary(self, text, key, model_name, p, temperature):
         openai.api_key = key
         summary_prompt_token = 1000        
         text_token = len(self.encoding.encode(text))
@@ -633,7 +633,7 @@ class Reader:
             ]
                 
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model=model_name,
             messages=messages,
             temperature=temperature, # What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
             top_p=p # An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered.
@@ -667,7 +667,7 @@ class Reader:
         print(f"Query: {self.query}")
         print(f"Sort: {self.sort}")                
 
-def upload_pdf(key, text, p, temperature, file):
+def upload_pdf(key, text, model_name, p, temperature, file):
     # 检查两个输入都不为空
     if not key or not text or not file:
         return "两个输入都不能为空，请输入字符并上传 PDF 文件！"
@@ -679,7 +679,7 @@ def upload_pdf(key, text, p, temperature, file):
         paper_list = [Paper(path=file, sl=section_list)]
         # 创建一个Reader对象
         reader = Reader()
-        sum_info, cost = reader.summary_with_chat(paper_list=paper_list, key=key, p=p, temperature=temperature)
+        sum_info, cost = reader.summary_with_chat(paper_list=paper_list, key=key, model_name=model_name, p=p, temperature=temperature)
         return cost, sum_info
 
 api_title = "api-key可用验证"
@@ -724,6 +724,7 @@ Use ChatGPT to summary the papers.Star our Github [🌟ChatPaper](https://github
 ip = [
     gradio.inputs.Textbox(label="请输入你的api-key(必填)", default="", type='password'),
     gradio.inputs.Textbox(label="请输入论文大标题索引(用英文逗号隔开,必填)", default="'Abstract,Introduction,Related Work,Background,Preliminary,Problem Formulation,Methods,Methodology,Method,Approach,Approaches,Materials and Methods,Experiment Settings,Experiment,Experimental Results,Evaluation,Experiments,Results,Findings,Data Analysis,Discussion,Results and Discussion,Conclusion,References'"),
+    gradio.inputs.Radio(choices=["gpt-3.5-turbo", "gpt-3.5-turbo-0301"], value="gpt-3.5-turbo", label="设备")
     gradio.inputs.Slider(minimum=-0, maximum=1.0, default=1.0, step=0.05, label="Top-p (nucleus sampling)"),
     gradio.inputs.Slider(minimum=-0, maximum=5.0, default=1.0, step=0.1, label="Temperature"),
     gradio.inputs.File(label="请上传论文PDF(必填)")
