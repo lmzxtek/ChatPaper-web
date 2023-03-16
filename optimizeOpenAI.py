@@ -94,7 +94,8 @@ class chatPaper:
         while True:
             full_conversation = ""
             for x in self.conversation[convo_id]:
-                full_conversation = str(x["content"] + "\n")
+                #full_conversation = str(x["content"] + "\n")
+                full_conversation = "{} \n".format(x["content"])
             if (len(ENCODER.encode(full_conversation)) > self.max_tokens):
                 self.conversation[convo_id][-1] = self.conversation[convo_id][-1][:-self.decrease_step]
             else:
