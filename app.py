@@ -80,6 +80,7 @@ class Paper:
         print("section_page_dict", self.section_page_dict)
         self.section_text_dict = self._get_all_page() # 段落与内容的对应字典
         self.section_text_dict.update({"title": self.title})
+        self.section_text_dict.update({"paper_info": self.get_paper_info()})
         self.pdf.close()     
         
     def get_paper_info(self):
