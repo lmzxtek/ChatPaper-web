@@ -60,6 +60,7 @@ class Paper:
         self.section_names = []   # 段落标题
         self.section_texts = {}   # 段落内容    
         self.abs = abs
+        self.title_page = 0
         if title == '':
             self.pdf = fitz.open(self.path) # pdf文档
             self.title = self.get_title()
@@ -79,7 +80,17 @@ class Paper:
         print("section_page_dict", self.section_page_dict)
         self.section_text_dict = self._get_all_page() # 段落与内容的对应字典
         self.section_text_dict.update({"title": self.title})
-        self.pdf.close()           
+        self.pdf.close()     
+        
+    def get_paper_info(self):
+        first_page_text = self.pdf[self.title_page].get_text()
+        if "Abstract" in self.section_text_dict.keys():
+            abstract_text = self.section_text_dict['Abstract']
+        else:
+            abstract_text = self.abs
+        introduction_text = self.section_text_dict['Introduction']
+        first_page_text = first_page_text.replace(abstract_text, "").replace(introduction_text, "")
+        return first_page_text
         
     def get_image_path(self, image_path=''):
         """
@@ -195,6 +206,7 @@ class Paper:
                                     cur_title += cur_string                       
                                 else:
                                     cur_title += ' ' + cur_string                       
+                            self.title_page = page_index
                             # break
         title = cur_title.replace('\n', ' ')                        
         return title
@@ -433,6 +445,7 @@ class Reader:
             text += 'Title:' + paper.title
             text += 'Url:' + paper.url
             text += 'Abstrat:' + paper.abs
+            text += 'Paper_info:' + paper.section_text_dict['paper_info']
             # intro
             text += list(paper.section_text_dict.values())[0]
             #max_token = 2500 * 4
