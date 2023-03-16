@@ -207,7 +207,7 @@ class Paper:
                                 else:
                                     cur_title += ' ' + cur_string                       
                             self.title_page = page_index
-                            # break
+
         title = cur_title.replace('\n', ' ')                        
         return title
 
