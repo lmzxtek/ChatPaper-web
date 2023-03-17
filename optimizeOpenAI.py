@@ -74,7 +74,7 @@ class chatPaper:
         if(convo_id not in self.conversation):
             self.reset(convo_id)
         self.conversation[convo_id].append({"role": role, "content": message})
-    
+
     def __truncate_conversation(self, convo_id: str = "default"):
         """
         Truncate the conversation
@@ -89,10 +89,10 @@ class chatPaper:
         full_conversation = "\n".join([str(x["content"]) for x in self.conversation[convo_id]],)
         if len(ENCODER.encode(full_conversation)) > self.max_tokens:
             self.conversation_summary(convo_id=convo_id)
+        full_conversation = ""
+        for x in self.conversation[convo_id]:
+            full_conversation = str(x["content"]) + "\n" + full_conversation
         while True:
-            full_conversation = ""
-            for x in self.conversation[convo_id]:
-                full_conversation = str(x["content"]) + "\n" + full_conversation
             if (len(ENCODER.encode(full_conversation+query)) > self.max_tokens):
                 query = query[:self.decrease_step]
             else:
@@ -170,7 +170,7 @@ class chatPaper:
             "https://api.openai.com/v1/chat/completions",
             headers={"Authorization": f"Bearer {self.get_api_key()}"},
             json={
-                "model": self.engine,
+                "model": self.model_name,
                 "messages": [{"role": "system", "content": "You are a helpful assistant."},{"role": "user", "content": "print A"}],
                 "stream": True,
                 # kwargs
