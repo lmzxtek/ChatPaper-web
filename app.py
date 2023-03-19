@@ -598,10 +598,10 @@ class Reader:
             }
             md_text = "\n".join(htmls)
 
-            with open(os.path.join('./', 'output.md'), "w", encoding="utf8") as f:
-                f.write(md_text)
+            #with open(os.path.join('./', 'output.md'), "w", encoding="utf8") as f:
+            #    f.write(md_text)
             
-            return markdown.markdown(md_text), pos_count, os.path.join('./', 'output.md')
+            return markdown.markdown(md_text), pos_count # , os.path.join('./', 'output.md')
 
     @tenacity.retry(wait=tenacity.wait_exponential(multiplier=1, min=4,
                                                    max=10),
@@ -859,7 +859,7 @@ ip = [
 
 chatpaper_gui = gradio.Interface(fn=upload_pdf,
                                  inputs=ip,
-                                 outputs=["json", "html", 'file'],
+                                 outputs=["json", "html"],
                                  title=title,
                                  description=description)
 
