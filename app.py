@@ -597,7 +597,11 @@ class Reader:
                 "cost": str(cost),
             }
             md_text = "\n".join(htmls)
-            return markdown.markdown(md_text), pos_count
+
+            with open(os.path.join('./', 'output.md'), "w", encoding="utf8") as f:
+                f.write(md_text)
+            
+            return markdown.markdown(md_text), pos_count, os.path.join('./', 'output.md')
 
     @tenacity.retry(wait=tenacity.wait_exponential(multiplier=1, min=4,
                                                    max=10),
@@ -780,7 +784,7 @@ def upload_pdf(api_keys, text, model_name, p, temperature, file):
                         temperature=temperature)
         sum_info, cost = reader.summary_with_chat(
             paper_list=paper_list)  # type: ignore
-        return cost, sum_info
+        return cost, sum_info, path
 
 
 api_title = "api-key可用验证"
@@ -856,7 +860,7 @@ ip = [
 
 chatpaper_gui = gradio.Interface(fn=upload_pdf,
                                  inputs=ip,
-                                 outputs=["json", "html"],
+                                 outputs=["json", "html", 'file'],
                                  title=title,
                                  description=description)
 
