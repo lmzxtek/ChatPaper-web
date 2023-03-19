@@ -784,7 +784,7 @@ def upload_pdf(api_keys, text, model_name, p, temperature, file):
                         temperature=temperature)
         sum_info, cost = reader.summary_with_chat(
             paper_list=paper_list)  # type: ignore
-        return cost, sum_info, path
+        return cost, sum_info
 
 
 api_title = "api-key可用验证"
