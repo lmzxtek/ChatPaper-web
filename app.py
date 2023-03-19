@@ -794,6 +794,8 @@ api_description = '''<div align='left'>
 
 <img align='right' src='https://i.328888.xyz/2023/03/12/vH9dU.png' width="150">
 
+💥💥💥<strong>面向全球，服务万千科研人的ChatPaper在线版即将推出，敬请期待！</strong>💥💥💥
+
 Use ChatGPT to summary the papers.Star our Github [🌟ChatPaper](https://github.com/kaixindelele/ChatPaper) .
 
 💗如果您觉得我们的项目对您有帮助，还请您给我们一些鼓励！💗
