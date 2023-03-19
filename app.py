@@ -857,7 +857,6 @@ ip = [
     gradio.inputs.File(label="请上传论文PDF(必填)")
 ]
 
-
 chatpaper_gui = gradio.Interface(fn=upload_pdf,
                                  inputs=ip,
                                  outputs=["json", "html", 'file'],
