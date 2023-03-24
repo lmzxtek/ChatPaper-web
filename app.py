@@ -794,7 +794,7 @@ api_description = '''<div align='left'>
 
 <img align='right' src='https://i.328888.xyz/2023/03/12/vH9dU.png' width="150">
 
-💥💥💥<strong>面向全球，服务万千科研人的ChatPaper在线版即将推出，敬请期待！</strong>💥💥💥
+💥💥💥<strong>面向全球，服务万千科研人的ChatPaper在线版正式上线：<a href="https://chatpaper.org/">https://chatpaper.org/</a> </strong>💥💥💥
 
 Use ChatGPT to summary the papers.Star our Github [🌟ChatPaper](https://github.com/kaixindelele/ChatPaper) .
 
@@ -827,7 +827,7 @@ description = '''<div align='left'>
 
 <img align='right' src='https://i.328888.xyz/2023/03/12/vH9dU.png' width="150">
 
-💥💥💥<strong>面向全球，服务万千科研人的ChatPaper在线版即将推出，敬请期待！</strong>💥💥💥
+💥💥💥<strong>面向全球，服务万千科研人的ChatPaper在线版正式上线：<a href="https://chatpaper.org/">https://chatpaper.org/</a> </strong>💥💥💥
 
 Use ChatGPT to summary the papers.Star our Github [🌟ChatPaper](https://github.com/kaixindelele/ChatPaper) .
 
