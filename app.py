@@ -794,6 +794,8 @@ api_description = '''<div align='left'>
 
 <img align='right' src='https://i.328888.xyz/2023/03/12/vH9dU.png' width="150">
 
+使用卡顿？请Fork到自己的Space，轻松使用：<a href="https://huggingface.co/spaces/wangrongsheng/ChatPaper?duplicate=true"><img src="https://bit.ly/3gLdBN6" alt="Duplicate Space"></a>
+
 💥💥💥<strong>面向全球，服务万千科研人的ChatPaper在线版正式上线：<a href="https://chatpaper.org/">https://chatpaper.org/</a> </strong>💥💥💥
 
 Use ChatGPT to summary the papers.Star our Github [🌟ChatPaper](https://github.com/kaixindelele/ChatPaper) .
@@ -826,6 +828,8 @@ description = '''<div align='left'>
 <img src='https://visitor-badge.laobi.icu/badge?page_id=https://huggingface.co/spaces/wangrongsheng/ChatPaper'>
 
 <img align='right' src='https://i.328888.xyz/2023/03/12/vH9dU.png' width="150">
+
+使用卡顿？请Fork到自己的Space，轻松使用：<a href="https://huggingface.co/spaces/wangrongsheng/ChatPaper?duplicate=true"><img src="https://bit.ly/3gLdBN6" alt="Duplicate Space"></a>
 
 💥💥💥<strong>面向全球，服务万千科研人的ChatPaper在线版正式上线：<a href="https://chatpaper.org/">https://chatpaper.org/</a> </strong>💥💥💥
 
